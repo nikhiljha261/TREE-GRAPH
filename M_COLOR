@@ -1,0 +1,74 @@
+//har har mahadev
+#include<bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+#define loop(i,a,b)     for(int i=(a);i<(b);i++)
+#define endl            "\n"
+// cout<<fixed<<setprecision(9)<<" ";
+// double rounded = std::floor((V * 100) + .5) / 100;
+
+void ganeshji(){
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+}
+
+vector<vector<int>> v(100005);
+// vector<int> color(100005);
+int m;
+vector<int> col(100005);
+
+bool dfs(int node,int p)
+{
+    for(int i=0;i<m;i++)
+    {
+        col[node]=i;
+        for(auto child : v[node])
+        {
+            if(col[child]==-1)
+            {
+                if(!dfs(child,i)) return false;
+            }
+            else{
+                if(i==p) return false;
+            }
+        }
+        col[node]=-1;
+    }
+    return true;
+}
+
+int main()
+{
+    ganeshji();
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    clock_t begin = clock();
+    ll t=1;
+    // cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        int m;
+        cin>>m;
+        memset(col,-1,sizeof(col));
+        loop(i,0,100005)
+        {
+            v[i].clear();
+        }
+        for(int i=0;i<m;i++){
+            int a,b;
+            cin>>a>>b;
+            v[a].push_back(b);
+        }
+        dfs(0,-1);
+    }
+    #ifndef ONLINE_JUDGE 
+      clock_t end = clock();
+      cout<<"\n\nExecuted In: "<<double(end - begin) / CLOCKS_PER_SEC*1000<<" ms";
+    #endif
+}  
